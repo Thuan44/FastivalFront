@@ -5,7 +5,7 @@ import { Card, Avatar, ButtonGroup, Chip } from 'react-native-elements'
 const HomeScreen = ({ navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const topButtons = ['Programmation', 'Artists']
+  const topButtons = ['Programmation', 'Artistes']
 
   // Fetch data method
   const getArtists = async () => {
@@ -29,19 +29,20 @@ const HomeScreen = ({ navigation }) => {
 
       {isLoading ? <ActivityIndicator /> : (
         <View>
+
           {/* Top Buttons */}
           <ButtonGroup
             // onPress={this.updateIndex} 
             // selectedIndex={selectedIndex} 
             buttons={topButtons}
-            containerStyle={{ height: 40 }} />
+            containerStyle={{ height: 40, marginBottom: 20 }} />
 
           {/* Date chips */}
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Chip title="Tous" />
-            <Chip title="Jeu 25 Août" type="outline" />
-            <Chip title="Ven 26 Août" type="outline" />
-            <Chip title="Sam 27 Août" type="outline" />
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
+            <Chip title="Tous" buttonStyle={{backgroundColor: 'salmon'}} />
+            <Chip title="Jeu 25 Août" type="outline" buttonStyle={{borderColor: 'salmon', borderWidth: 1}}  />
+            <Chip title="Ven 26 Août" type="outline" buttonStyle={{borderColor: 'salmon', borderWidth: 1}}  />
+            <Chip title="Sam 27 Août" type="outline" buttonStyle={{borderColor: 'salmon', borderWidth: 1}}  />
           </View>
 
           {/* List of artists */}
@@ -49,7 +50,6 @@ const HomeScreen = ({ navigation }) => {
             data={data}
             keyExtractor={(item, index) => item.artist_id}
             renderItem={({ item }) => (
-
               <TouchableOpacity>
                 <Card containerStyle={{ marginBottom: -10 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -67,6 +67,7 @@ const HomeScreen = ({ navigation }) => {
 
             )}
           />
+
         </View>
 
       )}

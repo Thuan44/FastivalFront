@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import HomeScreen from '../screens/HomeScreen';
+import MapScreen from '../screens/MapScreen';
 import ConnectionScreen from '../screens/ConnectionScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -19,6 +20,10 @@ const TabMenu = () => {
                         iconName = focused
                             ? 'ios-home'
                             : 'ios-home-outline';
+                    } else if (route.name === 'Map') {
+                        iconName = focused
+                            ? 'ios-map'
+                            : 'ios-map-outline';
                     } else if (route.name === 'Connection') {
                         iconName = focused
                             ? 'ios-person'
@@ -30,12 +35,19 @@ const TabMenu = () => {
                 },
                 tabBarActiveTintColor: 'salmon',
                 tabBarInactiveTintColor: 'gray',
+                tabBarStyle: { height: 50 },
+                tabBarShowLabel: false
             })}
         >
             <Tab.Screen
                 name="Home"
                 component={HomeScreen}
                 options={{ title: 'Accueil' }}
+            />
+            <Tab.Screen
+                name="Map"
+                component={MapScreen}
+                options={{ title: 'Map Screen' }}
             />
             <Tab.Screen
                 name="Connection"
