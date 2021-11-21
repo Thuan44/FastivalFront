@@ -9,7 +9,8 @@ const TabMenu = () => {
     const Tab = createBottomTabNavigator();
 
     return (
-        <Tab.Navigator initialRouteName="Home"
+        <Tab.Navigator
+            initialRouteName="Home"
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
@@ -34,7 +35,8 @@ const TabMenu = () => {
             <Tab.Screen
                 name="Home"
                 component={HomeScreen}
-                options={{ title: 'Home Screen' }} />
+                options={{ title: 'Accueil' }}
+            />
             <Tab.Screen
                 name="Connection"
                 component={ConnectionScreen}
