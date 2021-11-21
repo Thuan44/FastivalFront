@@ -1,49 +1,38 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Button, SafeAreaView, FlatList, ActivityIndicator } from 'react-native'
 
-const movieURL = "https://reactnative.dev/movies.json"
-
 const HomeScreen = ({ navigation }) => {
-  const [isLoading, setLoading] = useState(true)
-  const [data, setData] = useState([])
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
 
-  // Fetch data
-  // useEffect(() => {
-  //   fetch('http://10.0.2.2:8000/api/artists', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  //   .then((response) => {return response.json()})
-  //   .then((json) => setData(json))
-  //   .catch((error) => alert(error))
-  //   .then(setLoading(false))
-  // })
+  // Fetch data method
+  const getArtists = async () => {
+    try {
+      const response = await fetch('http://10.0.2.2:8000/api/artists');
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getArtists();
+  }, []);
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-
-       {isLoading ? (
-         <ActivityIndicator />
-       ) : (
-         <FlatList
+    <View style={{ flex: 1, padding: 24 }}>
+      {isLoading ? <ActivityIndicator /> : (
+        <FlatList
           data={data}
-          keyAxtractor={({ id }) => id}
-          renderItem={({ item }) => {
-            return (
-              <Text>
-                {item.artist_name}
-              </Text>
-            )
-          }}
-         >
-         </FlatList>
-       )
-
-       } 
+          keyExtractor={(item,  index) =>  item.artist_id}
+          renderItem={({ item }) => (
+            <Text>{item.artist_name}, {item.artist_description}</Text>
+          )}
+        />
+      )}
     </View>
   );
 }
